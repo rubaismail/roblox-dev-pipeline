@@ -32,14 +32,18 @@ local function block(parent: Instance, name: string, size: Vector3, position: Ve
 	return part
 end
 
+-- Painted on the face that points at the fixed camera, so names never float over the HUD or each other.
 local function label(part: BasePart, text: string)
-	local gui = Instance.new("BillboardGui")
+	local gui = Instance.new("SurfaceGui")
 	gui.Name = "Label"
-	gui.Size = UDim2.fromOffset(140, 24)
-	gui.StudsOffset = Vector3.new(0, part.Size.Y / 2 + 0.8, 0)
-	gui.MaxDistance = 150
+	gui.Face = Enum.NormalId.Back -- +Z, towards the camera
+	gui.LightInfluence = 0
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = 40
 	local textLabel = Instance.new("TextLabel")
-	textLabel.Size = UDim2.fromScale(1, 1)
+	textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	textLabel.Position = UDim2.fromScale(0.5, 0.5)
+	textLabel.Size = UDim2.fromScale(0.9, 0.6)
 	textLabel.BackgroundTransparency = 1
 	textLabel.Font = Enum.Font.GothamBold
 	textLabel.TextScaled = true

@@ -82,6 +82,14 @@ local function bind(name: string, handler: any, title: string?, ...: Enum.KeyCod
 	end
 end
 
+local function setNameVisible(item: BasePart, visible: boolean)
+	local info = item:FindFirstChild("Info")
+	local name = if info then info:FindFirstChild("Name") else nil
+	if name and name:IsA("GuiObject") then
+		name.Visible = visible
+	end
+end
+
 local function startHighlight()
 	local highlight = Instance.new("Highlight")
 	highlight.FillTransparency = 0.75
@@ -89,12 +97,35 @@ local function startHighlight()
 	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 	highlight.Parent = Workspace.CurrentCamera
 
+	-- Part names show only on the part you'd grab and the one you hold, so the conveyor doesn't become a wall
+	-- of overlapping labels.
+	local named: { [BasePart]: boolean } = {}
+	local function showNames(items: { BasePart? })
+		local wanted: { [BasePart]: boolean } = {}
+		for _, item in items do
+			if item then
+				wanted[item] = true
+			end
+		end
+		for item in named do
+			if not wanted[item] then
+				setNameVisible(item, false)
+				named[item] = nil
+			end
+		end
+		for item in wanted do
+			setNameVisible(item, true)
+			named[item] = true
+		end
+	end
+
 	task.spawn(function()
 		while true do
 			local root = rootOf()
 			local adornee: Instance? = nil
-			if root then
-				local target = Interaction.grabTarget(root, Interaction.heldItem(player.UserId))
+			local held = Interaction.heldItem(player.UserId)
+			local target = if root then Interaction.grabTarget(root, held) else nil
+			if target then
 				adornee = target.item or target.station
 				highlight.OutlineColor = if target.action == "Place"
 					then Color3.fromRGB(90, 230, 120)
@@ -102,6 +133,7 @@ local function startHighlight()
 			end
 			highlight.Adornee = adornee
 			highlight.Enabled = adornee ~= nil
+			showNames({ held, if target then target.item else nil })
 			task.wait(0.1)
 		end
 	end)

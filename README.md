@@ -9,7 +9,9 @@ roblox-dev-pipeline/
 ├── rokit.toml              # pinned tool versions (Rojo, Wally, Selene, StyLua, Lune)
 ├── selene.toml, testez.yml # lint config
 ├── stylua.toml             # format config
-├── docs/process.md         # the game pipeline
+├── CLAUDE.md               # rules for Claude threads working here
+├── docs/process.md         # the game pipeline: stages, gates, quality bars
+├── docs/templates/         # concept brief, GDD, gate review, playtest, launch, postmortem
 ├── tools/run-specs.luau    # runs a game's specs outside Studio with Lune
 ├── shared/                 # libraries reused across games (empty for now)
 └── games/

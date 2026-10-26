@@ -109,7 +109,7 @@ function Hud.start(send: (string) -> ())
 	end)
 
 	-- Banner, centre
-	local banner = label(gui, "Banner", UDim2.new(0.8, 0, 0, 180), UDim2.new(0.1, 0, 0.3, 0), 30)
+	local banner = label(gui, "Banner", UDim2.new(0.8, 0, 0, 180), UDim2.fromScale(0.1, 0.3), 30)
 	banner.TextWrapped = true
 	banner.TextScaled = true
 	local bannerSize = Instance.new("UITextSizeConstraint")

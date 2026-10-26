@@ -1,0 +1,32 @@
+{
+	"name": "countdown-crew-tests",
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedStorage": {
+			"Shared": {
+				"$path": "src/shared"
+			},
+			"Packages": {
+				"$path": { "optional": "Packages" }
+			},
+			"DevPackages": {
+				"$path": "DevPackages"
+			}
+		},
+		"ServerScriptService": {
+			"Server": {
+				"$path": "src/server"
+			},
+			"Tests": {
+				"$path": "tests"
+			}
+		},
+		"StarterPlayer": {
+			"StarterPlayerScripts": {
+				"Client": {
+					"$path": "src/client"
+				}
+			}
+		}
+	}
+}

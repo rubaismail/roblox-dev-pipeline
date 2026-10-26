@@ -6,10 +6,11 @@ Code for our Roblox games. Studio is where the world gets built; the Luau lives 
 
 ```
 roblox-dev-pipeline/
-├── rokit.toml              # pinned tool versions (Rojo, Wally, Selene, StyLua)
+├── rokit.toml              # pinned tool versions (Rojo, Wally, Selene, StyLua, Lune)
 ├── selene.toml, testez.yml # lint config
 ├── stylua.toml             # format config
 ├── docs/process.md         # the game pipeline
+├── tools/run-specs.luau    # runs a game's specs outside Studio with Lune
 ├── shared/                 # libraries reused across games (empty for now)
 └── games/
     └── countdown-crew/
@@ -19,7 +20,8 @@ roblox-dev-pipeline/
         ├── src/server/   -> ServerScriptService.Server
         ├── src/client/   -> StarterPlayer.StarterPlayerScripts.Client
         ├── src/shared/   -> ReplicatedStorage.Shared
-        └── tests/        -> ServerScriptService.Tests (test build only)
+        ├── tests/        -> ServerScriptService.Tests (test build only)
+        └── docs/         # game-specific docs, such as playtest scripts (not synced)
 ```
 
 ## Setup on Windows
@@ -74,20 +76,21 @@ The rest of this README uses Windows paths. On macOS, use `/` instead of `\`.
    ```powershell
    stylua .
    selene .
+   lune run tools/run-specs games/countdown-crew
    ```
 
 ## Running tests
 
-Specs are TestEZ `*.spec.luau` files in each game's `tests/` folder.
+Specs are TestEZ `*.spec.luau` files in each game's `tests/` folder. There are two ways to run them.
 
-1. In the game folder, run `wally install` once, then `rojo serve test.project.json`.
-2. Connect from Studio and press **Run** (F8). `TestRunner` runs every spec and prints the results to the Output window.
+- **From the terminal, no Studio:** from the repo root, run `lune run tools/run-specs games/countdown-crew`. This is what CI runs. It reads the game's Rojo project so specs can require modules the same way they do in Studio, and it supports the TestEZ features the specs use (`describe`, `it`, `beforeEach`, `afterEach`, and `expect` with `equal`, `near`, `ok`, `a`, `throw` and `never`).
+- **In Studio:** in the game folder, run `wally install` once, then `rojo serve test.project.json`. Connect from Studio and press **Run** (F8). `TestRunner` runs every spec and prints the results to the Output window.
 
-Specs cover pure logic like scoring, timers and inventory. Keep them free of Studio-only state so they stay fast and reliable.
+Specs cover pure logic like scoring, timers and station rules. Keep those modules free of services and Instances so they run in both places. Anything that needs a running game is checked by the playtest script in the game's `docs/` folder.
 
 ## CI
 
-`.github/workflows/lint.yml` runs on every pull request and every push to `main`. It installs the pinned tools with Rokit, then runs `stylua --check .` and `selene .`. A red check means run `stylua .` locally to fix formatting, or read the Selene output for lint errors.
+`.github/workflows/lint.yml` runs on every pull request and every push to `main`. It installs the pinned tools with Rokit, then runs `stylua --check .`, `selene .`, every game's specs with Lune, and `rojo build` on every game's project. A red check means run `stylua .` locally to fix formatting, or read the failing step's output.
 
 ## Adding a new game
 

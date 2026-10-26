@@ -51,4 +51,22 @@ flowchart TD
 
 - `games/<game-name>/` holds one game: its Rojo project, `wally.toml`, `src/` and `tests/`. The README covers setup and adding a game.
 - `shared/` is for Luau libraries reused across games. It is empty until a second game needs something.
-- Every change lands through a pull request, and CI runs StyLua and Selene on each one.
+- Every change lands through a pull request, and CI runs StyLua, Selene, the specs and a Rojo build on each one.
+- Playtest scripts for each gate live in `games/<game-name>/docs/`.
+
+## Definition of done for a pull request
+
+A pull request is ready for Yazeed's review when:
+
+1. CI is green: formatting, lint, specs and the Rojo build.
+2. New rules (scoring, timers, what a station accepts) live in plain modules with specs. Code that needs a running game is kept thin around them.
+3. Numbers a designer will tune are in one tuning module, not scattered through the code.
+4. The description says what changed, what was verified and how, what was not verified, and the exact steps to try it in Studio.
+5. Anything the change can only prove in Studio has a step in the game's playtest script.
+
+## Lessons learned
+
+Add to this list whenever a game teaches us something about the process. Newest first.
+
+- **2026-10-26, Countdown Crew greybox.** Claude sessions in the cloud can't open Studio, and can't reach Roblox's web APIs. So every game's rules go in plain modules that run under Lune in CI, and each gate gets a written playtest script with a solo smoke test that Yazeed runs before inviting testers. Type checking (luau-lsp analyze) isn't in CI yet; Studio's Script Analysis is the type check until it is.
+- **2026-10-26, idea stage.** Two ideas failed the originality gate after the design doc was written (an Ultimate Chicken Horse-style game, then an Overcooked-style cooking game). The search for direct copies now happens before the design doc, not after. A theme-only twist is not enough: the twist changes the loop (here, one rocket per countdown that launches at T-0 whatever its state).

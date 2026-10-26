@@ -4,8 +4,8 @@
 
 ## Definition of Done
 
-- [ ] CI is green (StyLua, Selene)
-- [ ] TestEZ specs cover the new pure logic and pass in Studio
+- [ ] CI is green (StyLua, Selene, specs, Rojo build)
+- [ ] TestEZ specs cover the new pure logic
 - [ ] Tested in Studio on a phone emulator and on PC
 - [ ] New remotes validate types, ranges and the caller, and are rate-limited
 - [ ] New saved fields are added to the versioned schema with a migration

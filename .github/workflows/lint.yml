@@ -27,3 +27,17 @@ jobs:
 
       - name: Selene
         run: selene .
+
+      # Pure game logic (scoring, flight, station rules) runs outside Studio with Lune.
+      - name: Specs
+        run: |
+          for game in games/*/; do
+            lune run tools/run-specs "${game%/}"
+          done
+
+      # Catches a broken Rojo project before anyone opens it in Studio.
+      - name: Rojo build
+        run: |
+          for game in games/*/; do
+            rojo build "${game%/}/default.project.json" --output "$RUNNER_TEMP/$(basename "$game").rbxl"
+          done

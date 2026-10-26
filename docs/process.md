@@ -174,8 +174,10 @@ These are our default bars. Each game's tech design can tighten them, but it can
 
 A pull request is mergeable only when all of these are true. The repo's PR template carries this as a checklist.
 
-- CI is green (StyLua and Selene).
-- Pure game logic has TestEZ specs, and they pass in Studio.
+- CI is green: StyLua, Selene, the specs (run with Lune) and the Rojo build.
+- Pure game logic has TestEZ specs. Rules live in plain modules with no services or Instances, so the specs run in CI as well as in Studio.
+- Numbers a designer will tune live in one tuning module per game.
+- The pull request says what was verified and how, and what was not. Anything that can only be proved in Studio has a step in the game's playtest script.
 - It was tested in Studio on at least a phone emulator and a PC.
 - New remotes follow the security bar. New saved fields follow the data bar.
 - Analytics events have been added for any new step in the player funnel.
@@ -214,6 +216,8 @@ Bugs are GitHub Issues with a severity label, steps to reproduce, the device, an
 
 - `games/<game-name>/` holds one game: its Rojo project, `wally.toml`, `src/` and `tests/`. The README covers setup and adding a game.
 - `shared/` holds Luau libraries reused across games. It stays empty until a second game needs something.
+- `games/<game-name>/docs/` holds the game's own working documents, such as its tech design, risk register and playtest scripts.
+- `tools/run-specs.luau` runs a game's TestEZ specs outside Studio with Lune. CI runs it on every pull request, together with StyLua, Selene and a Rojo build.
 - `docs/templates/` holds the documents each stage produces. Copy a template into the game's thread or Claude Doc, or into `games/<game-name>/docs/`.
 
 ## Keeping this process current
@@ -232,3 +236,5 @@ This process is meant to improve with every game we make.
 | 2026-10-26 | First version: 8 stages and 4 informal gates | Initial setup |
 | 2026-10-26 | Rebuilt on the studio stage-gate model: added the vertical slice, alpha, beta, the go or no-go gate, quality bars, Definition of Done, bug severity, the release process and postmortems | Yazeed asked for the same rigor as professional development agencies |
 | 2026-10-26 | The originality check at G1 has to look for direct copies before any idea is recommended, and live player counts come from Yazeed | Two concepts (a trap race and an Overcooked-style game) turned out to already exist on Roblox |
+| 2026-10-26 | Specs run outside Studio with Lune (`tools/run-specs.luau`), and CI runs them along with a Rojo build. The Definition of Done asks for rules in plain modules, one tuning module, and a written list of what was and wasn't verified. | Claude threads can't open Studio, so "specs pass in Studio" could never be checked on a Claude PR. The Countdown Crew greybox had 39 specs that only CI could run. |
+| 2026-10-26 | Every greybox ships with a playtest script whose first part is a solo smoke test that Yazeed runs before inviting testers | Code written in the cloud reaches Studio untested. A 10-minute smoke test stops a broken build from wasting a session with outside testers. |

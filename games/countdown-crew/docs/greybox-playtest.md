@@ -21,7 +21,7 @@ Press **Play** (F5). Run every check below. If any one fails, stop and report it
 | # | Do this | Expect |
 |---|---------|--------|
 | 1 | Wait 5 s after spawning | Briefing banner, then the countdown starts at 2:20 (solo gets 1.4x time). The build order shows at the top. |
-| 1b | Look over the pad | Station names are painted on each station's camera-facing side. No label floats over the timer, and each build-order chip has a colour swatch that matches its part. |
+| 1b | Look over the pad | Station names are painted on each station's camera-facing side. No label floats over the timer, and each build-order chip has a colour swatch that matches its part. The HOLD and LAUNCH NOW buttons at the top right aren't covered by Roblox's player list. |
 | 2 | Walk to the conveyor's right end, press **E** | The first part (Engine) is picked up and floats in front of you. Whatever **E** would act on is outlined, and only that part and the one you hold show their name. |
 | 3 | Walk to a workbench, press **E**, then hold **F** | The part sits on the bench; the yellow bar fills in about 2.5 s. |
 | 4 | Pick the bolted engine up and press **E** at the yellow crane | The engine appears on the rocket behind the fence; the first chip turns green. |

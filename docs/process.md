@@ -168,6 +168,7 @@ These are our default bars. Each game's tech design can tighten them, but it can
 
 **Accessibility and UX**
 - Text is readable on a phone. Touch targets are big enough for a thumb. Information is never carried by color alone.
+- Our HUD never sits under Roblox's own UI: the player list (top right), chat (top left) and the mobile thumbstick and jump button (bottom). Either keep clear of those areas or turn off the core UI the game doesn't need.
 - The first-time experience teaches by doing, in under 2 minutes.
 
 ## Definition of Done
@@ -238,3 +239,4 @@ This process is meant to improve with every game we make.
 | 2026-10-26 | The originality check at G1 has to look for direct copies before any idea is recommended, and live player counts come from Yazeed | Two concepts (a trap race and an Overcooked-style game) turned out to already exist on Roblox |
 | 2026-10-26 | Specs run outside Studio with Lune (`tools/run-specs.luau`), and CI runs them along with a Rojo build. The Definition of Done asks for rules in plain modules, one tuning module, and a written list of what was and wasn't verified. | Claude threads can't open Studio, so "specs pass in Studio" could never be checked on a Claude PR. The Countdown Crew greybox had 39 specs that only CI could run. |
 | 2026-10-26 | Every greybox ships with a playtest script whose first part is a solo smoke test that Yazeed runs before inviting testers | Code written in the cloud reaches Studio untested. A 10-minute smoke test stops a broken build from wasting a session with outside testers. |
+| 2026-10-26 | Added a UX bar: the HUD stays clear of Roblox's core UI (player list, chat, touch controls), or turns off what the game doesn't need | In Countdown Crew's first Studio runs, Roblox's player list covered the HOLD button. It was visible in the first screenshot and nobody caught it until the 2-player test. |

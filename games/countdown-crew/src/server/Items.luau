@@ -52,6 +52,8 @@ local function makeBillboard(item: BasePart, def: Parts.Def)
 	name.TextColor3 = Color3.new(1, 1, 1)
 	name.TextStrokeTransparency = 0.3
 	name.Text = def.displayName
+	-- Hidden until it matters: the client shows it on the part you are about to grab or are holding
+	name.Visible = false
 	name.Parent = gui
 
 	local bar = Instance.new("Frame")

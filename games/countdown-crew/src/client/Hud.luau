@@ -83,8 +83,8 @@ function Hud.start(send: (string) -> ())
 	local recipeRow = Instance.new("Frame")
 	recipeRow.Name = "Recipe"
 	recipeRow.BackgroundTransparency = 1
-	recipeRow.Size = UDim2.fromOffset(600, 30)
-	recipeRow.Position = UDim2.new(0.5, -300, 0, 86)
+	recipeRow.Size = UDim2.fromOffset(700, 30)
+	recipeRow.Position = UDim2.new(0.5, -350, 0, 86)
 	recipeRow.Parent = gui
 	local layout = Instance.new("UIListLayout")
 	layout.FillDirection = Enum.FillDirection.Horizontal
@@ -162,7 +162,8 @@ function Hud.start(send: (string) -> ())
 			chip.TextColor3 = WHITE
 			chip.BackgroundColor3 = if stacked == nil then PANEL elseif stacked == kind then DONE else WRONG
 			chip.BackgroundTransparency = 0.2
-			local name = (Parts.defs :: any)[kind] and (Parts.defs :: any)[kind].displayName or kind
+			local def = (Parts.defs :: any)[kind]
+			local name = if def then def.displayName else kind
 			chip.Text = if stacked == nil
 				then `{index}. {name}`
 				elseif stacked == kind then `✓ {name}`
@@ -170,6 +171,19 @@ function Hud.start(send: (string) -> ())
 			local corner = Instance.new("UICorner")
 			corner.CornerRadius = UDim.new(0, 8)
 			corner.Parent = chip
+			-- A swatch in the part's colour, so players learn which grey-box part is which
+			if def then
+				chip.Size = UDim2.fromOffset(124, 28)
+				local padding = Instance.new("UIPadding")
+				padding.PaddingLeft = UDim.new(0, 22)
+				padding.Parent = chip
+				local swatch = Instance.new("Frame")
+				swatch.Size = UDim2.fromOffset(14, 14)
+				swatch.Position = UDim2.new(0, -16, 0.5, -7)
+				swatch.BackgroundColor3 = def.color
+				swatch.BorderSizePixel = 0
+				swatch.Parent = chip
+			end
 			chip.Parent = recipeRow
 		end
 	end

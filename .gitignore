@@ -1,0 +1,18 @@
+# Wally installs these from wally.lock
+Packages/
+DevPackages/
+ServerPackages/
+
+# Generated files
+sourcemap.json
+roblox.yml
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+*.rbxl.lock
+*.rbxlx.lock
+
+# OS and editor noise
+.DS_Store
+Thumbs.db

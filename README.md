@@ -41,6 +41,30 @@ You need [Roblox Studio](https://create.roblox.com), [Git for Windows](https://g
    ```
 5. **Open VS Code** in the repo and accept the recommended extensions (Luau LSP, StyLua, Selene, Rojo). Files format on save.
 
+## Setup on macOS
+
+You need [Roblox Studio](https://create.roblox.com), Git and [VS Code](https://code.visualstudio.com). If `git --version` asks you to install the command line developer tools, accept. Run the commands below in Terminal.
+
+1. **Install Rokit**, the toolchain manager. Then close and reopen Terminal so `rokit` is on your PATH.
+   ```sh
+   curl -sSf https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.sh | bash
+   ```
+2. **Clone the repo and install the tools.** Say yes when Rokit asks to trust each tool.
+   ```sh
+   git clone https://github.com/rubaismail/roblox-dev-pipeline.git
+   cd roblox-dev-pipeline
+   rokit install
+   ```
+3. **Install the Rojo plugin into Studio.** With Studio closed, run `rojo plugin install`.
+4. **Install packages for a game.**
+   ```sh
+   cd games/countdown-crew
+   wally install
+   ```
+5. **Open VS Code** in the repo and accept the recommended extensions.
+
+The rest of this README uses Windows paths. On macOS, use `/` instead of `\`.
+
 ## Daily workflow
 
 1. In `games\countdown-crew`, run `rojo serve`.

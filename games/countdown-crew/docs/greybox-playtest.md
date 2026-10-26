@@ -1,6 +1,6 @@
 # Countdown Crew: greybox playtest
 
-This is the script for stage 03 of [the pipeline](../../../docs/process.md). The gate is: **is the core loop fun with 5 outside players?** The design is in the [design doc](https://claude.ai/artifact/HbBDqWLaqgfps8EDoAJpEk).
+This is the script for stage 03 of [the pipeline](../../../docs/process.md), leading to gate **G2 Fun proven**: at least 8 outside players in at least 2 sessions, following the [playtest protocol](../../../docs/process.md#playtest-protocol). The design is in the [design doc](https://claude.ai/artifact/HbBDqWLaqgfps8EDoAJpEk), and the risks this greybox has to retire are in the [risk register](tech-design.md#risk-register).
 
 The greybox has one mission (Earth Pad, 3 launches), built from code with grey parts. There's no art, sound, saving, shop or tutorial yet; testers are told so up front.
 
@@ -35,19 +35,21 @@ Press **Play** (F5). Run every check below. If any one fails, stop and report it
 | 13 | **Test > Clients and Servers**: start a local server with 2 players | Both players see the same parts, fires and timer. One player can throw a part to the other, who catches it with empty hands. |
 | 14 | In the Device Emulator, pick a phone | Grab, Use, Throw and Dash touch buttons appear; HOLD and LAUNCH NOW are tappable top-right; there's no jump button. |
 
-## 3. The session (5 outside players, about 40 minutes)
+## 3. The sessions (at least 8 outside players across at least 2 sessions, about 40 minutes each)
 
 "Outside" means they didn't build the game and haven't watched it being built. Publish to a private place or use a team test so they can join from their own devices. At least 2 should be on phones.
 
 1. **Brief (2 min).** Say only: "You're a ground crew. Build the rocket shown at the top before the countdown hits zero. E grabs, F works, Q throws." Don't explain stations; finding them out is part of what we're testing.
 2. **Play 2 missions (about 15 min)** with voice or in the same room. Don't help unless someone is stuck for over 60 s, and write down every time you had to.
 3. **Free choice (5 min).** Say "That's all we need; you can stop or keep playing." Write down who keeps playing.
-4. **Questions (10 min)**, one at a time, before any discussion:
-    1. What was the funniest moment?
-    2. When were you confused?
-    3. Which station did you like least, and why?
-    4. Would you play this with your friends? (Yes, maybe, no.)
-    5. Phone players: was anything hard to press or reach?
+4. **Survey (10 min)**, each tester answers alone before any discussion. The first four are the studio's standard survey; the rest are specific to this greybox.
+    1. How fun was it, from 1 to 5?
+    2. Would you play it again?
+    3. What was confusing?
+    4. How would you describe this game to a friend?
+    5. What was the funniest moment?
+    6. Which station did you like least, and why?
+    7. Phone players: was anything hard to press or reach?
 
 ## 4. Watch for
 
@@ -61,17 +63,18 @@ Write down the time and what happened:
 - Did anyone use HOLD or LAUNCH NOW, and did they understand them?
 - Outcome of every launch, and the final stars.
 
-## 5. Pass or fail
+## 5. What G2 needs
 
-The gate passes when **all** of these are true:
+The gate criteria are in [docs/process.md](../../../docs/process.md#phases-and-gates). For this greybox, the evidence Yazeed reads at G2 is:
 
-- At least 3 of 5 players ask to play again, or keep playing in the free-choice period.
-- At least half the launches get off the pad by the second mission. The crew learned the flow without being taught.
-- Nobody was stuck for over 60 s more than once.
-- No bug made a launch unwinnable.
+- **Would play again:** a majority of all testers say yes, or keep playing in the free-choice period.
+- **Finish unprompted:** a clear majority finish a full 3-launch mission without being prompted.
+- **Learning:** by the second mission, at least half the launches get off the pad, so crews learn the flow without being taught.
+- **Risks:** each open row in the [risk register](tech-design.md#risk-register) is retired or has a plan.
+- **Bugs:** no bug made a launch unwinnable.
 
-Fail on any one and the PR thread gets a short report: what failed, the notes, and the one change to try next. The pipeline allows 2 rounds before shelving.
+If the first round falls short, the report names the one change to try next, and the second round tests it. The pipeline kills or returns the game after 2 failed rounds.
 
 ## 6. Report
 
-Post in the project thread: the checklist results, the notes from step 4, the answers, and pass or fail. Tuning numbers to change go in `src/shared/Tuning.luau` or `src/shared/Missions.luau`.
+Write one [playtest report](../../../docs/templates/playtest-report.md) per session, on the same day, and post it in the project thread. Bugs become GitHub Issues with a severity label. Tuning numbers to change go in `src/shared/Tuning.luau` or `src/shared/Missions.luau`. The G2 decision uses the [gate review template](../../../docs/templates/gate-review.md).
